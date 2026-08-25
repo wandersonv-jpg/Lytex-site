@@ -43,7 +43,8 @@ function visit(directory) {
       continue;
     }
     if (!entry.name.endsWith(".js") && !entry.name.endsWith(".css") && !entry.name.endsWith(".html")) continue;
-    let content = readFileSync(target, "utf8").replaceAll("/manus-storage/", "./assets/");
+    const assetPrefix = target.startsWith(assetsOutput) ? "./" : "./assets/";
+    let content = readFileSync(target, "utf8").replaceAll("/manus-storage/", assetPrefix);
     for (const [from, to] of Object.entries(replacements)) content = content.replaceAll(from, to);
     writeFileSync(target, content);
   }

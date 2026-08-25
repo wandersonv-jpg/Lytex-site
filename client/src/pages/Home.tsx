@@ -333,7 +333,7 @@ export default function Home() {
             <button className="button button--lime" onClick={openWhatsApp}><MessageCircle size={18} /> Chamar no WhatsApp</button>
           </div>
           <div className="contact-band-details">
-            <div className="contact-qr-block"><img src={`${asset}/lytex-site-qr_b6c099e9.png`} alt="QR Code para acessar o site da Lytex" /><span>Aponte a câmera<br />para acessar</span></div>
+            <div className="contact-qr-block"><img src={`${asset}/lytex-whatsapp-qr_a9359bfe.png`} alt="QR Code para falar com a Lytex pelo WhatsApp" /><span>Aponte a câmera<br />para falar conosco</span></div>
             <div className="contact-detail"><Phone size={17} /><a href="tel:+5519996220753">(19) 99622-0753</a></div>
             <div className="contact-detail"><Mail size={17} /><a href="mailto:comercial@Lytexconfeccoes.onmicrosoft.com">comercial@Lytexconfeccoes.onmicrosoft.com</a></div>
             <div className="contact-detail"><MapPin size={17} /><span>Limeira — SP</span></div>

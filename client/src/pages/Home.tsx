@@ -17,7 +17,6 @@ import {
   Plus,
   X,
 } from "lucide-react";
-import { trpc } from "@/lib/trpc";
 
 const asset = "/manus-storage";
 const whatsappUrl =
@@ -126,7 +125,6 @@ function scrollToId(id: string) {
 }
 
 export default function Home() {
-  const { data: portfolioItems } = trpc.portfolio.list.useQuery();
   const [activeCategory, setActiveCategory] = useState("todos");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<(typeof gallery)[number] | null>(null);
@@ -146,25 +144,12 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const catalogItems = useMemo(() => {
-    if (!portfolioItems?.length) return gallery;
-    return portfolioItems.map((item, index) => ({
-      id: item.slug,
-      category: item.category,
-      tag: item.tag,
-      title: item.title,
-      description: item.description,
-      image: item.imageUrl,
-      tone: index % 2 === 0 ? "dark" : "light",
-    }));
-  }, [portfolioItems]);
-
   const visibleGallery = useMemo(
     () =>
       activeCategory === "todos"
-        ? catalogItems
-        : catalogItems.filter((item) => item.category === activeCategory),
-    [activeCategory, catalogItems],
+        ? gallery
+        : gallery.filter((item) => item.category === activeCategory),
+    [activeCategory],
   );
 
   const openWhatsApp = () => window.open(whatsappUrl, "_blank", "noopener,noreferrer");

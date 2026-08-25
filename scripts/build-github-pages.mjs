@@ -44,7 +44,7 @@ function visit(directory) {
       continue;
     }
     if (!entry.name.endsWith(".js") && !entry.name.endsWith(".css") && !entry.name.endsWith(".html")) continue;
-    const assetBase = target.startsWith(assetsOutput) ? "." : "./assets";
+    const assetBase = "./assets";
     const assetPrefix = `${assetBase}/`;
     let content = readFileSync(target, "utf8")
       .replaceAll("/manus-storage/", assetPrefix)

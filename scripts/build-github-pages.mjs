@@ -35,13 +35,21 @@ const replacements = {
   "page-022_068b846f.png": "page-022.png",
 };
 
-for (const file of readdirSync(output)) {
-  if (!file.endsWith(".js") && !file.endsWith(".css") && !file.endsWith(".html")) continue;
-  const target = join(output, file);
-  let content = readFileSync(target, "utf8").replaceAll("/manus-storage/", "./assets/");
-  for (const [from, to] of Object.entries(replacements)) content = content.replaceAll(from, to);
-  writeFileSync(target, content);
+function visit(directory) {
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    const target = join(directory, entry.name);
+    if (entry.isDirectory()) {
+      visit(target);
+      continue;
+    }
+    if (!entry.name.endsWith(".js") && !entry.name.endsWith(".css") && !entry.name.endsWith(".html")) continue;
+    let content = readFileSync(target, "utf8").replaceAll("/manus-storage/", "./assets/");
+    for (const [from, to] of Object.entries(replacements)) content = content.replaceAll(from, to);
+    writeFileSync(target, content);
+  }
 }
+
+visit(output);
 
 console.log(`GitHub Pages export ready: ${output}`);
 console.log(`Local assets copied: ${readdirSync(assetsOutput).length}`);

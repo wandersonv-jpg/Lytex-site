@@ -17,10 +17,11 @@ import {
   Plus,
   X,
 } from "lucide-react";
+import { trpc } from "@/lib/trpc";
 
 const asset = "/manus-storage";
 const whatsappUrl =
-  "https://wa.me/5519987720637?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Lytex%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+  "https://wa.me/5519996220753?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Lytex%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
 const categories = [
   { id: "todos", label: "Todos" },
@@ -125,6 +126,7 @@ function scrollToId(id: string) {
 }
 
 export default function Home() {
+  const { data: portfolioItems } = trpc.portfolio.list.useQuery();
   const [activeCategory, setActiveCategory] = useState("todos");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<(typeof gallery)[number] | null>(null);
@@ -144,12 +146,25 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const catalogItems = useMemo(() => {
+    if (!portfolioItems?.length) return gallery;
+    return portfolioItems.map((item, index) => ({
+      id: item.slug,
+      category: item.category,
+      tag: item.tag,
+      title: item.title,
+      description: item.description,
+      image: item.imageUrl,
+      tone: index % 2 === 0 ? "dark" : "light",
+    }));
+  }, [portfolioItems]);
+
   const visibleGallery = useMemo(
     () =>
       activeCategory === "todos"
-        ? gallery
-        : gallery.filter((item) => item.category === activeCategory),
-    [activeCategory],
+        ? catalogItems
+        : catalogItems.filter((item) => item.category === activeCategory),
+    [activeCategory, catalogItems],
   );
 
   const openWhatsApp = () => window.open(whatsappUrl, "_blank", "noopener,noreferrer");
@@ -318,7 +333,8 @@ export default function Home() {
             <button className="button button--lime" onClick={openWhatsApp}><MessageCircle size={18} /> Chamar no WhatsApp</button>
           </div>
           <div className="contact-band-details">
-            <div className="contact-detail"><Phone size={17} /><a href="tel:+5519987720637">(19) 98772-0637</a></div>
+            <div className="contact-qr-block"><img src={`${asset}/lytex-site-qr_b6c099e9.png`} alt="QR Code para acessar o site da Lytex" /><span>Aponte a câmera<br />para acessar</span></div>
+            <div className="contact-detail"><Phone size={17} /><a href="tel:+5519996220753">(19) 99622-0753</a></div>
             <div className="contact-detail"><Mail size={17} /><a href="mailto:comercial@Lytexconfeccoes.onmicrosoft.com">comercial@Lytexconfeccoes.onmicrosoft.com</a></div>
             <div className="contact-detail"><MapPin size={17} /><span>Limeira — SP</span></div>
             <div className="contact-social"><a href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="WhatsApp"><MessageCircle size={18} /></a><a href="mailto:comercial@Lytexconfeccoes.onmicrosoft.com" aria-label="E-mail"><Mail size={18} /></a><a href="#top" aria-label="Voltar ao início"><ChevronUpIcon /></a></div>

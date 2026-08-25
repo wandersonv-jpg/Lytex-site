@@ -195,6 +195,9 @@ h1 em, h2 em { color: var(--lime); font-style: italic; font-weight: 500; }
 .contact-band-copy { position: relative; z-index: 1; }
 .contact-band-copy > p:not(.eyebrow) { max-width: 330px; margin: 1.7rem 0 2rem; color: rgba(255, 255, 255, 0.67); font-size: 0.88rem; line-height: 1.7; }
 .contact-band-details { position: relative; z-index: 1; align-self: end; padding-bottom: 0.2rem; }
+.contact-qr-block { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.55rem; }
+.contact-qr-block img { width: 86px; height: 86px; padding: 0.35rem; background: var(--white); object-fit: contain; }
+.contact-qr-block span { color: rgba(255, 255, 255, 0.65); font-size: 0.6rem; line-height: 1.55; letter-spacing: 0.1em; text-transform: uppercase; }
 .contact-detail { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.95rem; color: rgba(255, 255, 255, 0.75); font-size: 0.73rem; line-height: 1.4; }
 .contact-detail svg { flex: 0 0 auto; color: var(--lime); }
 .contact-detail a { transition: color 180ms var(--ease-out); }
@@ -222,6 +225,47 @@ h1 em, h2 em { color: var(--lime); font-style: italic; font-weight: 500; }
 .lightbox-caption strong { font-family: var(--serif); font-size: 1.8rem; line-height: 1; }
 .lightbox-caption p { margin: 0; color: var(--graphite-muted); font-size: 0.74rem; line-height: 1.5; }
 .rotate-180 { transform: rotate(180deg); }
+
+.admin-shell { min-height: 100vh; background: var(--paper); color: var(--ink); padding: clamp(1.5rem, 4vw, 3.5rem); }
+.admin-topbar { display: flex; justify-content: space-between; align-items: end; gap: 2rem; max-width: 1180px; margin: 0 auto 2rem; }
+.admin-topbar h1 { margin: 0.55rem 0 0.7rem; font-family: var(--serif); font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 600; letter-spacing: -0.05em; line-height: 0.9; }
+.admin-topbar p { max-width: 490px; margin: 0; color: var(--graphite-muted); font-size: 0.84rem; line-height: 1.6; }
+.admin-kicker { color: var(--lime-dark); font-size: 0.6rem; letter-spacing: 0.17em; text-transform: uppercase; font-weight: 800; }
+.admin-user-chip { display: flex; align-items: center; gap: 0.5rem; border: 1px solid var(--line); padding: 0.65rem 0.8rem; color: var(--graphite-muted); font-size: 0.66rem; letter-spacing: 0.07em; text-transform: uppercase; white-space: nowrap; }
+.admin-user-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); }
+.admin-notice { display: flex; align-items: center; gap: 0.6rem; max-width: 1180px; margin: 0 auto 1.5rem; border: 1px solid rgba(138, 165, 31, 0.35); background: rgba(184, 217, 61, 0.12); padding: 0.85rem 1rem; color: var(--graphite-muted); font-size: 0.72rem; }
+.admin-notice svg { color: var(--lime-dark); }
+.admin-notice-count { margin-left: auto; color: var(--lime-dark); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; }
+.admin-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; max-width: 1180px; margin: 0 auto; }
+.admin-item-card { display: grid; grid-template-columns: minmax(150px, 0.78fr) minmax(0, 1.22fr); min-height: 330px; background: var(--white); box-shadow: 0 12px 34px rgba(23, 24, 23, 0.06); }
+.admin-item-preview { position: relative; min-height: 330px; overflow: hidden; background: var(--ink); }
+.admin-item-preview img { width: 100%; height: 100%; object-fit: cover; }
+.admin-upload-label { position: absolute; right: 0.75rem; bottom: 0.75rem; left: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.45rem; border: 1px solid rgba(255, 255, 255, 0.55); background: rgba(23, 24, 23, 0.74); color: var(--white); padding: 0.62rem; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 800; cursor: pointer; transition: background 180ms var(--ease-out), color 180ms var(--ease-out); }
+.admin-upload-label:hover { background: var(--lime); color: var(--ink); }
+.admin-upload-label input { display: none; }
+.admin-item-fields { display: flex; flex-direction: column; gap: 0.7rem; padding: 1.1rem; }
+.admin-item-heading { display: flex; justify-content: space-between; align-items: center; gap: 0.7rem; margin-bottom: 0.1rem; color: var(--graphite-muted); font-size: 0.56rem; letter-spacing: 0.11em; text-transform: uppercase; font-weight: 800; }
+.admin-visible, .admin-hidden { padding: 0.26rem 0.4rem; font-size: 0.5rem; }
+.admin-visible { background: rgba(184, 217, 61, 0.18); color: var(--lime-dark); }
+.admin-hidden { background: rgba(23, 24, 23, 0.08); color: var(--graphite-muted); }
+.admin-item-fields label:not(.admin-checkbox) { display: flex; flex-direction: column; gap: 0.32rem; }
+.admin-item-fields label:not(.admin-checkbox) > span { color: var(--graphite-muted); font-size: 0.53rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 800; }
+.admin-item-fields input:not([type="checkbox"]), .admin-item-fields textarea { width: 100%; border: 1px solid var(--line); border-radius: 0; background: var(--paper); color: var(--ink); padding: 0.55rem 0.6rem; font-family: var(--sans); font-size: 0.72rem; outline: none; resize: vertical; transition: border 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
+.admin-item-fields input:not([type="checkbox"]):focus, .admin-item-fields textarea:focus { border-color: var(--lime-dark); box-shadow: 0 0 0 3px rgba(184, 217, 61, 0.18); }
+.admin-item-footer { display: flex; align-items: center; justify-content: space-between; gap: 0.7rem; margin-top: auto; padding-top: 0.25rem; }
+.admin-checkbox { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--graphite-muted); font-size: 0.62rem; }
+.admin-checkbox input { accent-color: var(--lime-dark); }
+.admin-save-button { display: inline-flex; align-items: center; gap: 0.45rem; border: 0; background: var(--ink); color: var(--lime); padding: 0.65rem 0.75rem; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 800; transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 160ms var(--ease-out); }
+.admin-save-button:hover { background: var(--lime); color: var(--ink); }
+.admin-save-button:active { transform: scale(0.97); }
+.admin-save-button:disabled { cursor: wait; opacity: 0.65; }
+.admin-loading, .admin-error, .admin-empty-state { display: grid; place-items: center; min-height: 40vh; max-width: 1180px; margin: 0 auto; border: 1px solid var(--line); background: var(--white); color: var(--graphite-muted); text-align: center; padding: 3rem; }
+.admin-empty-state { display: flex; flex-direction: column; gap: 0.7rem; }
+.admin-empty-state svg { color: var(--lime-dark); }
+.admin-empty-state h1 { margin: 0.3rem 0 0; font-family: var(--serif); color: var(--ink); font-size: 3rem; letter-spacing: -0.04em; }
+.admin-empty-state p { max-width: 360px; margin: 0; font-size: 0.8rem; line-height: 1.65; }
+.admin-spinner { animation: admin-spin 850ms linear infinite; }
+@keyframes admin-spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 1024px) {
   .site-header { height: 72px; }
@@ -278,11 +322,20 @@ h1 em, h2 em { color: var(--lime); font-style: italic; font-weight: 500; }
   .contact-band-mark { align-self: auto; }
   .contact-band-mark img { width: 62px; height: 62px; }
   .contact-band-details { align-self: auto; }
+  .contact-qr-block img { width: 76px; height: 76px; }
   .site-footer { flex-direction: column; align-items: flex-start; padding: 1.3rem 1.25rem 5.3rem; }
   .floating-whatsapp { right: 1rem; bottom: 1rem; }
   .lightbox { padding: 0.7rem; }
   .lightbox-inner { max-height: calc(100vh - 1.4rem); }
   .lightbox-inner > img { max-height: 58vh; }
+  .admin-shell { padding: 1.25rem; }
+  .admin-topbar { align-items: flex-start; flex-direction: column; }
+  .admin-items { grid-template-columns: 1fr; }
+  .admin-item-card { grid-template-columns: minmax(190px, 0.75fr) minmax(0, 1.25fr); }
+  .admin-notice { align-items: flex-start; flex-wrap: wrap; }
+  .admin-notice-count { margin-left: 0; width: 100%; }
+  .admin-item-card { display: flex; flex-direction: column; }
+  .admin-item-preview { min-height: 245px; max-height: 300px; }
   .lightbox-caption { display: block; padding: 0.8rem 0.7rem 0.45rem; }
   .lightbox-caption span, .lightbox-caption strong, .lightbox-caption p { display: block; }
   .lightbox-caption strong { margin: 0.45rem 0; font-size: 1.65rem; }

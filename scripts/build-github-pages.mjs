@@ -1,5 +1,6 @@
+import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { cpSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, readFileSync, readdirSync, renameSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
@@ -54,6 +55,22 @@ function visit(directory) {
 }
 
 visit(output);
+
+const bundle = readdirSync(assetsOutput).find((file) => file.endsWith(".js"));
+if (bundle) {
+  const bundlePath = join(assetsOutput, bundle);
+  const digest = createHash("sha256").update(readFileSync(bundlePath)).digest("hex").slice(0, 12);
+  const cacheBustedBundle = `index-${digest}.js`;
+  if (bundle !== cacheBustedBundle) {
+    renameSync(bundlePath, join(assetsOutput, cacheBustedBundle));
+    for (const file of readdirSync(output)) {
+      if (!file.endsWith(".html")) continue;
+      const target = join(output, file);
+      const content = readFileSync(target, "utf8").replaceAll(bundle, cacheBustedBundle);
+      writeFileSync(target, content);
+    }
+  }
+}
 
 console.log(`GitHub Pages export ready: ${output}`);
 console.log(`Local assets copied: ${readdirSync(assetsOutput).length}`);

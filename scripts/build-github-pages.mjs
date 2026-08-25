@@ -43,8 +43,11 @@ function visit(directory) {
       continue;
     }
     if (!entry.name.endsWith(".js") && !entry.name.endsWith(".css") && !entry.name.endsWith(".html")) continue;
-    const assetPrefix = target.startsWith(assetsOutput) ? "./" : "./assets/";
-    let content = readFileSync(target, "utf8").replaceAll("/manus-storage/", assetPrefix);
+    const assetBase = target.startsWith(assetsOutput) ? "." : "./assets";
+    const assetPrefix = `${assetBase}/`;
+    let content = readFileSync(target, "utf8")
+      .replaceAll("/manus-storage/", assetPrefix)
+      .replaceAll("/manus-storage", assetBase);
     for (const [from, to] of Object.entries(replacements)) content = content.replaceAll(from, to);
     writeFileSync(target, content);
   }
